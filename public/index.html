@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Robô ANVISA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Painel de triagem ANVISA</p>
+          <h1>Importe o PDF e transforme os indeferimentos em um relatório utilizável.</h1>
+          <p class="hero-text">
+            Faça upload do Diário Oficial, veja os registros processados na tela,
+            filtre o que precisa e exporte um relatório em poucos cliques.
+          </p>
+        </div>
+        <div class="hero-badge">
+          <span>PDF</span>
+          <strong>Extração + relatório</strong>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <section class="panel upload-panel">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Entrada</p>
+              <h2>Importar arquivo</h2>
+            </div>
+            <p class="section-text">Selecione um PDF da ANVISA para processar.</p>
+          </div>
+
+          <form id="upload-form" class="upload-form">
+            <label class="dropzone" for="pdf-input">
+              <input id="pdf-input" name="pdf" type="file" accept="application/pdf" required />
+              <span class="dropzone-title">Escolher PDF</span>
+              <span class="dropzone-subtitle">Clique para selecionar ou troque o arquivo quando quiser.</span>
+              <span id="file-name" class="dropzone-file">Nenhum arquivo selecionado</span>
+            </label>
+            <button id="process-button" class="primary-button" type="submit">
+              Processar PDF
+            </button>
+          </form>
+
+          <p id="status-message" class="status-message" aria-live="polite"></p>
+        </section>
+
+        <section class="panel summary-panel">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Resumo</p>
+              <h2>Visão geral</h2>
+            </div>
+            <div class="actions">
+              <button id="export-csv" class="ghost-button" type="button" disabled>
+                Exportar CSV
+              </button>
+              <button id="export-json" class="ghost-button" type="button" disabled>
+                Exportar JSON
+              </button>
+              <button id="print-report" class="ghost-button" type="button" disabled>
+                Imprimir relatório
+              </button>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span class="stat-label">Arquivo</span>
+              <strong id="stat-file" class="stat-value">Nenhum</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Registros</span>
+              <strong id="stat-total" class="stat-value">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Assuntos únicos</span>
+              <strong id="stat-assuntos" class="stat-value">0</strong>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Empresas únicas</span>
+              <strong id="stat-empresas" class="stat-value">0</strong>
+            </article>
+          </div>
+
+          <div id="report-highlights" class="report-highlights empty-state">
+            O relatório aparecerá aqui depois do processamento.
+          </div>
+        </section>
+
+        <section class="panel filters-panel">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Consulta</p>
+              <h2>Filtrar resultados</h2>
+            </div>
+          </div>
+
+          <div class="filters-grid">
+            <label class="field">
+              <span>Buscar</span>
+              <input
+                id="search-input"
+                type="search"
+                placeholder="Razão social, CNPJ, expediente ou motivo"
+              />
+            </label>
+
+            <label class="field">
+              <span>Assunto</span>
+              <select id="assunto-filter">
+                <option value="">Todos</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="panel table-panel">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Resultado</p>
+              <h2>Publicações encontradas</h2>
+            </div>
+            <p id="result-count" class="section-text">0 registros exibidos</p>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Razão social</th>
+                  <th>CNPJ</th>
+                  <th>Expediente</th>
+                  <th>Assunto</th>
+                  <th>Motivo do indeferimento</th>
+                </tr>
+              </thead>
+              <tbody id="results-body">
+                <tr>
+                  <td colspan="5" class="empty-table">
+                    Importe um PDF para visualizar os dados aqui.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
