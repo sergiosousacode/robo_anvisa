@@ -12,6 +12,7 @@ async function main() {
 
   console.log(`Encontradas: ${total}`);
   console.table(dados.map(({ textoOriginal, ...resto }) => resto));
+  res.json(dadosLimpos);
 
   dados.forEach((item, index) => {
     console.log("\n");
